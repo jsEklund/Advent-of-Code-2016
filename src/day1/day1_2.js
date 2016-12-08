@@ -93,4 +93,4 @@ var Startup = (function () {
     return Startup;
 }());
 Startup.main();
-//# sourceMappingURL=day1_1.js.map
+//# sourceMappingURL=day1_2.js.map
