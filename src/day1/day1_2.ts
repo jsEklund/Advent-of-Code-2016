@@ -1,134 +1,135 @@
-var fs = require("fs");
-var data = fs.readFileSync('src/day1/input.txt','utf8');
+namespace day1_2 {
 
-//var data = "R2, L3"; // 5
-//var data = "R2, R2, R2"; // 2
-//var data = "R5, L5, R5, R3"; // 12
+    var fs = require("fs");
+    var data = fs.readFileSync('src/day1/input.txt', 'utf8');
 
-enum Directions {
-    Up = 1,
-    Down,
-    Left,
-    Right
-}
+    //var data = "R2, L3"; // 5
+    //var data = "R2, R2, R2"; // 2
+    //var data = "R5, L5, R5, R3"; // 12
 
-class Positions {
-    horisontal: number;
-    vertical: number;
-    direction: Directions;
-
-    move(input: string) {
-
-         let step = parseInt(input.substring(1), 10);
-
-         switch (input[0]) {
-
-             case "R":
-             this.stepClockwise(this.direction);
-             break;
-
-             case "L":
-             this.stepCounterclockwise(this.direction);
-             break;
-         }
-
-         switch (this.direction) {
-
-            case Directions.Up:
-            this.vertical += step;
-            break;
-
-            case Directions.Down:
-            this.vertical -=step;
-            break;
-
-            case Directions.Left:
-            this.horisontal -=step;
-            break;
-
-            case Directions.Right:
-            this.horisontal +=step;
-            break;
-
-         }
-
+    enum Directions {
+        Up = 1,
+        Down,
+        Left,
+        Right
     }
 
-    stepClockwise(input: Directions) {
+    class Positions {
+        horisontal: number;
+        vertical: number;
+        direction: Directions;
 
-        switch (input) {
-            case Directions.Up:
-            this.direction = Directions.Right;
-            break;
+        move(input: string) {
 
-            case Directions.Right:
-            this.direction = Directions.Down;
-            break;
+            let step = parseInt(input.substring(1), 10);
 
-            case Directions.Down:
-            this.direction = Directions.Left;
-            break;
+            switch (input[0]) {
 
-            case Directions.Left:
+                case "R":
+                    this.stepClockwise(this.direction);
+                    break;
+
+                case "L":
+                    this.stepCounterclockwise(this.direction);
+                    break;
+            }
+
+            switch (this.direction) {
+
+                case Directions.Up:
+                    this.vertical += step;
+                    break;
+
+                case Directions.Down:
+                    this.vertical -= step;
+                    break;
+
+                case Directions.Left:
+                    this.horisontal -= step;
+                    break;
+
+                case Directions.Right:
+                    this.horisontal += step;
+                    break;
+
+            }
+
+        }
+
+        stepClockwise(input: Directions) {
+
+            switch (input) {
+                case Directions.Up:
+                    this.direction = Directions.Right;
+                    break;
+
+                case Directions.Right:
+                    this.direction = Directions.Down;
+                    break;
+
+                case Directions.Down:
+                    this.direction = Directions.Left;
+                    break;
+
+                case Directions.Left:
+                    this.direction = Directions.Up;
+                    break;
+            }
+        }
+
+        stepCounterclockwise(input: Directions) {
+
+            switch (input) {
+                case Directions.Up:
+                    this.direction = Directions.Left;
+                    break;
+
+                case Directions.Right:
+                    this.direction = Directions.Up;
+                    break;
+
+                case Directions.Down:
+                    this.direction = Directions.Right;
+                    break;
+
+                case Directions.Left:
+                    this.direction = Directions.Down;
+                    break;
+            }
+        }
+
+        constructor() {
+
+            this.horisontal = 0;
+            this.vertical = 0;
             this.direction = Directions.Up;
-            break;
-        }
-    }
-    
-    stepCounterclockwise(input:Directions) {
-
-        switch (input) {
-            case Directions.Up:
-            this.direction = Directions.Left;
-            break;
-
-            case Directions.Right:
-            this.direction = Directions.Up;
-            break;
-
-            case Directions.Down:
-            this.direction = Directions.Right;
-            break;
-
-            case Directions.Left:
-            this.direction = Directions.Down;
-            break;
         }
     }
 
-    constructor() {
-
-        this.horisontal = 0;
-        this.vertical = 0;
-        this.direction = Directions.Up;
+    function getInputArray(input: string) {
+        return input.split(", ")
     }
-}
-
-function getInputArray(input: string) {
-    return input.split(", ")
-}
 
 
-class Startup {
+    export class Startup {
 
-    public static main() {
+        public static main() {
 
-        let input = getInputArray(data);
-        
-        let position = new Positions();
+            let input = getInputArray(data);
 
-        for (let i = 0; i < input.length; i++) {
+            let position = new Positions();
 
-            position.move(input[i]);
+            for (let i = 0; i < input.length; i++) {
+
+                position.move(input[i]);
+            }
+
+            let blocksAway = position.horisontal + position.vertical;
+
+            console.log(blocksAway);
 
         }
-
-        let blocksAway = position.horisontal + position.vertical;
-
-        console.log(blocksAway);
-
     }
 }
 
-
-Startup.main();
+day1_2.Startup.main();

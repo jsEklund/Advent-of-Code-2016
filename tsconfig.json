@@ -3,6 +3,9 @@
         "target": "es5",
         "module": "commonjs",
         "sourceMap": true,
-        "watch": true
+        "watch": true,
+        "noLib": false,
+        "declaration": false,
+        "removeComments": true
         }
 }

@@ -1,3 +1,5 @@
+namespace day1_1 {
+
 var fs = require("fs");
 var data = fs.readFileSync('src/day1/input.txt','utf8');
 
@@ -132,3 +134,5 @@ class Startup {
 
 
 Startup.main();
+
+}
