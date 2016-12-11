@@ -1,8 +1,5 @@
 var fs = require("fs");
 var data = fs.readFileSync('src/day1/input.txt', 'utf8');
-//var data = "R2, L3"; // 5
-//var data = "R2, R2, R2"; // 2
-//var data = "R5, L5, R5, R3"; // 12
 var Directions;
 (function (Directions) {
     Directions[Directions["Up"] = 1] = "Up";
