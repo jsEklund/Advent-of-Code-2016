@@ -28,19 +28,19 @@ var day1_2;
             }
             switch (this.direction) {
                 case Directions.Up:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.vertical += step;
                     break;
                 case Directions.Down:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.vertical -= step;
                     break;
                 case Directions.Left:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.horisontal -= step;
                     break;
                 case Directions.Right:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.horisontal += step;
                     break;
             }
@@ -82,7 +82,7 @@ var day1_2;
     function getInputArray(input) {
         return input.split(", ");
     }
-    function isPositionVisitedTwice(visitedPositions, step, directon) {
+    function CalculatePositionVisitedTwice(visitedPositions, step, directon) {
         var currentPosition;
         for (var i = 0; i < step; i++) {
             switch (directon) {

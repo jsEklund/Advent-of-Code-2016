@@ -37,25 +37,25 @@ namespace day1_2 {
             switch (this.direction) {
 
                 case Directions.Up:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.vertical += step;
 
                     break;
 
                 case Directions.Down:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.vertical -= step;
 
                     break;
 
                 case Directions.Left:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.horisontal -= step;
 
                     break;
 
                 case Directions.Right:
-                    isPositionVisitedTwice(this, step, this.direction);
+                    CalculatePositionVisitedTwice(this, step, this.direction);
                     this.horisontal += step;
 
                     break;
@@ -117,40 +117,40 @@ namespace day1_2 {
         return input.split(", ")
     }
 
-function isPositionVisitedTwice(visitedPositions: Positions, step: number, directon: Directions) {
+    function CalculatePositionVisitedTwice(visitedPositions: Positions, step: number, directon: Directions) {
 
-let currentPosition;
+        let currentPosition;
 
-    for (let i = 0; i < step; i++) {
+        for (let i = 0; i < step; i++) {
 
-        switch (directon) {
+            switch (directon) {
 
-            case Directions.Up:
-                currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical + i);
+                case Directions.Up:
+                    currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical + i);
+                    break;
+
+                case Directions.Down:
+                    currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical - i);
+                    break;
+
+                case Directions.Left:
+                    currentPosition = (visitedPositions.horisontal - i) + "|" + visitedPositions.vertical;
+                    break;
+
+                case Directions.Right:
+                    currentPosition = (visitedPositions.horisontal + i) + "|" + visitedPositions.vertical;
+                    break;
+
+            }
+
+            if (IsPositionIsVisitedTwice(visitedPositions, currentPosition)) {
+                visitedPositions.firstPositionVisitedTwice = currentPosition;
                 break;
-
-            case Directions.Down:
-                currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical - i);
-                break;
-
-            case Directions.Left:
-                currentPosition = (visitedPositions.horisontal - i) + "|" + visitedPositions.vertical;
-                break;
-
-            case Directions.Right:
-                currentPosition = (visitedPositions.horisontal + i) + "|" + visitedPositions.vertical;
-                break;
-
-        }
-
-        if (IsPositionIsVisitedTwice(visitedPositions, currentPosition)) {
-            visitedPositions.firstPositionVisitedTwice = currentPosition;
-            break;
-        } else {
-            visitedPositions.visitedPositions.push(currentPosition);
+            } else {
+                visitedPositions.visitedPositions.push(currentPosition);
+            }
         }
     }
-}
 
     function IsPositionIsVisitedTwice(visitedPositions: Positions, position: string): boolean {
 
@@ -174,13 +174,13 @@ let currentPosition;
 
                 position.move(input[i]);
 
-               if (position.firstPositionVisitedTwice !== undefined) {
+                if (position.firstPositionVisitedTwice !== undefined) {
 
-                   let visitedTwice = position.firstPositionVisitedTwice.split("|");
+                    let visitedTwice = position.firstPositionVisitedTwice.split("|");
 
-                   console.log("First position visited twice " + (parseInt(visitedTwice[0]) + parseInt(visitedTwice[1])));
-                   break;
-               }
+                    console.log("First position visited twice " + (parseInt(visitedTwice[0]) + parseInt(visitedTwice[1])));
+                    break;
+                }
             }
         }
     }
