@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var day1_2;
 (function (day1_2) {
     var fs = require("fs");
@@ -11,9 +12,36 @@ var day1_2;
     })(Directions || (Directions = {}));
     var Positions = (function () {
         function Positions() {
+            this.visitedPositions = [];
             this.horisontal = 0;
             this.vertical = 0;
             this.direction = Directions.Up;
+=======
+var fs = require("fs");
+var data = fs.readFileSync('src/day1/input.txt', 'utf8');
+var Directions;
+(function (Directions) {
+    Directions[Directions["Up"] = 1] = "Up";
+    Directions[Directions["Down"] = 2] = "Down";
+    Directions[Directions["Left"] = 3] = "Left";
+    Directions[Directions["Right"] = 4] = "Right";
+})(Directions || (Directions = {}));
+var Positions = (function () {
+    function Positions() {
+        this.horisontal = 0;
+        this.vertical = 0;
+        this.direction = Directions.Up;
+    }
+    Positions.prototype.move = function (input) {
+        var step = parseInt(input.substring(1), 10);
+        switch (input[0]) {
+            case "R":
+                this.stepClockwise(this.direction);
+                break;
+            case "L":
+                this.stepCounterclockwise(this.direction);
+                break;
+>>>>>>> master
         }
         Positions.prototype.move = function (input) {
             var step = parseInt(input.substring(1), 10);
@@ -27,15 +55,19 @@ var day1_2;
             }
             switch (this.direction) {
                 case Directions.Up:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.vertical += step;
                     break;
                 case Directions.Down:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.vertical -= step;
                     break;
                 case Directions.Left:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.horisontal -= step;
                     break;
                 case Directions.Right:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.horisontal += step;
                     break;
             }
@@ -77,6 +109,40 @@ var day1_2;
     function getInputArray(input) {
         return input.split(", ");
     }
+    function isPositionVisitedTwice(visitedPositions, step, directon) {
+        var currentPosition;
+        for (var i = 0; i < step; i++) {
+            switch (directon) {
+                case Directions.Up:
+                    currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical + i);
+                    break;
+                case Directions.Down:
+                    currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical - i);
+                    break;
+                case Directions.Left:
+                    currentPosition = (visitedPositions.horisontal - i) + "|" + visitedPositions.vertical;
+                    break;
+                case Directions.Right:
+                    currentPosition = (visitedPositions.horisontal + i) + "|" + visitedPositions.vertical;
+                    break;
+            }
+            if (IsPositionIsVisitedTwice(visitedPositions, currentPosition)) {
+                visitedPositions.firstPositionVisitedTwice = currentPosition;
+                break;
+            }
+            else {
+                visitedPositions.visitedPositions.push(currentPosition);
+            }
+        }
+    }
+    function IsPositionIsVisitedTwice(visitedPositions, position) {
+        for (var _i = 0, _a = visitedPositions.visitedPositions; _i < _a.length; _i++) {
+            var visited = _a[_i];
+            if (position == visited) {
+                return true;
+            }
+        }
+    }
     var Startup = (function () {
         function Startup() {
         }
@@ -85,9 +151,12 @@ var day1_2;
             var position = new Positions();
             for (var i = 0; i < input.length; i++) {
                 position.move(input[i]);
+                if (position.firstPositionVisitedTwice !== undefined) {
+                    var visitedTwice = position.firstPositionVisitedTwice.split("|");
+                    console.log("First position visited twice " + (parseInt(visitedTwice[0]) + parseInt(visitedTwice[1])));
+                    break;
+                }
             }
-            var blocksAway = position.horisontal + position.vertical;
-            console.log(blocksAway);
         };
         return Startup;
     }());

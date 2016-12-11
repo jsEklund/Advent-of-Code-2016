@@ -3,9 +3,7 @@ namespace day1_2 {
     var fs = require("fs");
     var data = fs.readFileSync('src/day1/input.txt', 'utf8');
 
-    //var data = "R2, L3"; // 5
-    //var data = "R2, R2, R2"; // 2
-    //var data = "R5, L5, R5, R3"; // 12
+    //var data = "R8, R4, R4, R8";
 
     enum Directions {
         Up = 1,
@@ -18,6 +16,8 @@ namespace day1_2 {
         horisontal: number;
         vertical: number;
         direction: Directions;
+        visitedPositions: string[] = [];
+        firstPositionVisitedTwice: String;
 
         move(input: string) {
 
@@ -37,19 +37,27 @@ namespace day1_2 {
             switch (this.direction) {
 
                 case Directions.Up:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.vertical += step;
+
                     break;
 
                 case Directions.Down:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.vertical -= step;
+
                     break;
 
                 case Directions.Left:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.horisontal -= step;
+
                     break;
 
                 case Directions.Right:
+                    isPositionVisitedTwice(this, step, this.direction);
                     this.horisontal += step;
+
                     break;
 
             }
@@ -99,7 +107,6 @@ namespace day1_2 {
         }
 
         constructor() {
-
             this.horisontal = 0;
             this.vertical = 0;
             this.direction = Directions.Up;
@@ -110,6 +117,50 @@ namespace day1_2 {
         return input.split(", ")
     }
 
+function isPositionVisitedTwice(visitedPositions: Positions, step: number, directon: Directions) {
+
+let currentPosition;
+
+    for (let i = 0; i < step; i++) {
+
+        switch (directon) {
+
+            case Directions.Up:
+                currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical + i);
+                break;
+
+            case Directions.Down:
+                currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical - i);
+                break;
+
+            case Directions.Left:
+                currentPosition = (visitedPositions.horisontal - i) + "|" + visitedPositions.vertical;
+                break;
+
+            case Directions.Right:
+                currentPosition = (visitedPositions.horisontal + i) + "|" + visitedPositions.vertical;
+                break;
+
+        }
+
+        if (IsPositionIsVisitedTwice(visitedPositions, currentPosition)) {
+            visitedPositions.firstPositionVisitedTwice = currentPosition;
+            break;
+        } else {
+            visitedPositions.visitedPositions.push(currentPosition);
+        }
+    }
+}
+
+    function IsPositionIsVisitedTwice(visitedPositions: Positions, position: string): boolean {
+
+        for (let visited of visitedPositions.visitedPositions) {
+
+            if (position == visited) {
+                return true;
+            }
+        }
+    }
 
     export class Startup {
 
@@ -122,12 +173,15 @@ namespace day1_2 {
             for (let i = 0; i < input.length; i++) {
 
                 position.move(input[i]);
+
+               if (position.firstPositionVisitedTwice !== undefined) {
+
+                   let visitedTwice = position.firstPositionVisitedTwice.split("|");
+
+                   console.log("First position visited twice " + (parseInt(visitedTwice[0]) + parseInt(visitedTwice[1])));
+                   break;
+               }
             }
-
-            let blocksAway = position.horisontal + position.vertical;
-
-            console.log(blocksAway);
-
         }
     }
 }
