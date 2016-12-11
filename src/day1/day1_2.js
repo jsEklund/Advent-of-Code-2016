@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var day1_2;
 (function (day1_2) {
     var fs = require("fs");
@@ -16,32 +15,6 @@ var day1_2;
             this.horisontal = 0;
             this.vertical = 0;
             this.direction = Directions.Up;
-=======
-var fs = require("fs");
-var data = fs.readFileSync('src/day1/input.txt', 'utf8');
-var Directions;
-(function (Directions) {
-    Directions[Directions["Up"] = 1] = "Up";
-    Directions[Directions["Down"] = 2] = "Down";
-    Directions[Directions["Left"] = 3] = "Left";
-    Directions[Directions["Right"] = 4] = "Right";
-})(Directions || (Directions = {}));
-var Positions = (function () {
-    function Positions() {
-        this.horisontal = 0;
-        this.vertical = 0;
-        this.direction = Directions.Up;
-    }
-    Positions.prototype.move = function (input) {
-        var step = parseInt(input.substring(1), 10);
-        switch (input[0]) {
-            case "R":
-                this.stepClockwise(this.direction);
-                break;
-            case "L":
-                this.stepCounterclockwise(this.direction);
-                break;
->>>>>>> master
         }
         Positions.prototype.move = function (input) {
             var step = parseInt(input.substring(1), 10);
