@@ -82,10 +82,10 @@ var day1_2;
     function getInputArray(input) {
         return input.split(", ");
     }
-    function CalculatePositionVisitedTwice(visitedPositions, step, directon) {
+    function CalculatePositionVisitedTwice(visitedPositions, step, direction) {
         var currentPosition;
         for (var i = 0; i < step; i++) {
-            switch (directon) {
+            switch (direction) {
                 case Directions.Up:
                     currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical + i);
                     break;

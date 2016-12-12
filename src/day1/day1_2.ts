@@ -117,13 +117,13 @@ namespace day1_2 {
         return input.split(", ")
     }
 
-    function CalculatePositionVisitedTwice(visitedPositions: Positions, step: number, directon: Directions) {
+    function CalculatePositionVisitedTwice(visitedPositions: Positions, step: number, direction: Directions) {
 
         let currentPosition;
 
         for (let i = 0; i < step; i++) {
 
-            switch (directon) {
+            switch (direction) {
 
                 case Directions.Up:
                     currentPosition = visitedPositions.horisontal + "|" + (visitedPositions.vertical + i);
