@@ -86,7 +86,6 @@ namespace day2_2 {
                 break;
 
             }
-
         }
 
         if (direction === Direction.Down) {
@@ -163,7 +162,6 @@ namespace day2_2 {
                 break;
 
             }
-
         }
 
         if (direction === Direction.Right) {
@@ -203,7 +201,6 @@ namespace day2_2 {
                 break;
 
             }
-
         }
 
         return newPosition;
@@ -232,10 +229,7 @@ namespace day2_2 {
                     if (j == move.length) {
                         code += position.position;
                     }
-
                 }
-
-                
             }
                 console.log("code: " + code);
         }
