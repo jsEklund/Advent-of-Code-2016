@@ -1,9 +1,22 @@
 namespace day3_1 {
 
     var fs = require("fs");
-    var data = fs.readFileSync('src/day2/input.txt', 'utf8');
+    var data = fs.readFileSync('src/day3/input.txt', 'utf8');
 
-    //
+    class Triangle {
+        sideA: number;
+        sideB: number;
+        sideC: number;
+
+        isTriagnle(): Boolean {
+            if ((this.sideA + this.sideB) > this.sideC && (this.sideB + this.sideC) > this.sideA && (this.sideC + this.sideA) > this.sideB) {
+                return true;
+
+            } else {
+                return false;
+            }
+        }
+    }
 
     function getInputArray(input: string) {
         return input.split("\n")
@@ -13,7 +26,29 @@ namespace day3_1 {
 
         public static main() {
 
-            // run
+            let input = getInputArray(data);
+            var countTriangles = 0;
+            
+
+            for (let i = 0; i < input.length; i++) {
+
+                let test = input[i];
+                let pattern = /\d+/g;
+                let sides = test.match(pattern);
+
+                
+
+                let triangle = new Triangle();
+                triangle.sideA = parseInt(sides[0]);
+                triangle.sideB = parseInt(sides[1]);
+                triangle.sideC = parseInt(sides[2]);
+
+                if (triangle.isTriagnle()) {
+                    countTriangles++;
+                }
+            }
+
+            console.log("Possible triangles: " + countTriangles);
 
         }
     }
