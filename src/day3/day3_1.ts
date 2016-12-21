@@ -8,7 +8,7 @@ namespace day3_1 {
         sideB: number;
         sideC: number;
 
-        isTriagnle(): Boolean {
+        isTriangle(): Boolean {
             if ((this.sideA + this.sideB) > this.sideC && (this.sideB + this.sideC) > this.sideA && (this.sideC + this.sideA) > this.sideB) {
                 return true;
 
@@ -43,7 +43,7 @@ namespace day3_1 {
                 triangle.sideB = parseInt(sides[1]);
                 triangle.sideC = parseInt(sides[2]);
 
-                if (triangle.isTriagnle()) {
+                if (triangle.isTriangle()) {
                     countTriangles++;
                 }
             }

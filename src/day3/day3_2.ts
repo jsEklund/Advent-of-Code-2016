@@ -8,7 +8,7 @@ namespace day3_2 {
         sideB: number;
         sideC: number;
 
-        isTriagnle(): Boolean {
+        isTriangle(): Boolean {
             if ((this.sideA + this.sideB) > this.sideC && (this.sideB + this.sideC) > this.sideA && (this.sideC + this.sideA) > this.sideB) {
                 return true;
 
@@ -50,7 +50,7 @@ namespace day3_2 {
                         triangle.sideB = parseInt(arr[1][j]);
                         triangle.sideC = parseInt(arr[2][j]);
 
-                        if (triangle.isTriagnle()) {
+                        if (triangle.isTriangle()) {
                             countTriangles++;
                         }
                     }
@@ -61,7 +61,7 @@ namespace day3_2 {
                 }
             }
 
-            console.log("Total triagles: " + countTriangles);
+            console.log("Total triangles: " + countTriangles);
         }
     }
 }
