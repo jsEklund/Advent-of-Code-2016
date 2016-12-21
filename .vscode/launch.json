@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}/src/day3/day3_1.ts",
+            "program": "${workspaceRoot}/src/day3/day3_2.ts",
             "stopOnEntry": true,
             "cwd": "${workspaceRoot}",
             "sourceMaps": true,
