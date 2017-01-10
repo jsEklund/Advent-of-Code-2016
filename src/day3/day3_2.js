@@ -5,7 +5,7 @@ var day3_2;
     var Triangle = (function () {
         function Triangle() {
         }
-        Triangle.prototype.isTriagnle = function () {
+        Triangle.prototype.isTriangle = function () {
             if ((this.sideA + this.sideB) > this.sideC && (this.sideB + this.sideC) > this.sideA && (this.sideC + this.sideA) > this.sideB) {
                 return true;
             }
@@ -36,14 +36,14 @@ var day3_2;
                         triangle.sideA = parseInt(arr[0][j]);
                         triangle.sideB = parseInt(arr[1][j]);
                         triangle.sideC = parseInt(arr[2][j]);
-                        if (triangle.isTriagnle()) {
+                        if (triangle.isTriangle()) {
                             countTriangles++;
                         }
                     }
                     arr = [];
                 }
             }
-            console.log("Total triagles: " + countTriangles);
+            console.log("Total triangles: " + countTriangles);
         };
         return Startup;
     }());
