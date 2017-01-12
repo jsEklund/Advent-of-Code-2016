@@ -12,66 +12,31 @@ var day4_2;
         }
         return Encryption;
     }());
-    var Letter = (function () {
-        function Letter() {
-        }
-        return Letter;
-    }());
-    function IsMostCommonChar(input, checksum) {
-        var inputArray = input.sort(function (a, b) {
-            if (a.Count > b.Count) {
-                return -1;
-            }
-            if (a.Count < b.Count) {
-                return 1;
-            }
-            if (a.Char < b.Char) {
-                return -1;
-            }
-            if (a.Char > b.Char) {
-                return 1;
-            }
-            return 0;
-        });
-        var IsValid;
-        for (var i = 0; i < checksum.length; i++) {
-            if (checksum[i] === inputArray[i].Char) {
-                IsValid = true;
-            }
-            else {
-                IsValid = false;
-                return IsValid;
-            }
-        }
-        return IsValid;
-    }
-    function countChar(input) {
-        var arr = [];
-        for (var i = 0; i < input.length; i++) {
-            if (input[i] === "-") {
+    function getNextCharactersInString(input) {
+        var chars = input;
+        var newString = "";
+        for (var j = 0; j < chars.length; j++) {
+            if (chars[j] === "-" || chars[j] === " ") {
+                newString += " ";
                 continue;
             }
-            var obj = {
-                Char: input[i],
-                Count: 1
-            };
-            var index = isCharInArray(arr, input[i]);
-            if (index === -1) {
-                arr.push(obj);
+            var charCode = chars[j].charCodeAt(0);
+            if (charCode !== 122) {
+                charCode++;
             }
             else {
-                arr[index].Count++;
+                charCode = 97;
             }
+            newString += String.fromCharCode(charCode);
         }
-        return arr;
+        return newString;
     }
-    function isCharInArray(arr, char) {
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i].Char === char) {
-                return i;
-            }
+    function LoopNrOfTimes(input, count) {
+        var encryption = input;
+        for (var i = 0; i < count; i++) {
+            encryption = getNextCharactersInString(encryption);
         }
-        return -1;
+        return encryption;
     }
     function getInputArray(input) {
         return input.split("\n");
@@ -81,15 +46,16 @@ var day4_2;
         }
         Startup.main = function () {
             var input = getInputArray(data);
-            var realRoomSectorIdsSum = 0;
+            var northPoleObjects;
             for (var i = 0; i < input.length; i++) {
-                var myEncryption = new Encryption(input[i]);
-                var test = IsMostCommonChar(countChar(myEncryption.EncryptedName), myEncryption.Checksum);
-                if (test === true) {
-                    realRoomSectorIdsSum += myEncryption.SectorId;
+                var encryptedString = new Encryption(input[i]);
+                var chars = LoopNrOfTimes(encryptedString.EncryptedName, encryptedString.SectorId);
+                if (chars.indexOf("north") !== -1 && chars.indexOf("pole") !== -1) {
+                    northPoleObjects = encryptedString.SectorId;
+                    break;
                 }
             }
-            console.log("Sum of sectorIDs: " + realRoomSectorIdsSum);
+            console.log("sector ID: " + northPoleObjects);
         };
         return Startup;
     }());

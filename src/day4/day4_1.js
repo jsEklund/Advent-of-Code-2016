@@ -84,8 +84,8 @@ var day4_1;
             var realRoomSectorIdsSum = 0;
             for (var i = 0; i < input.length; i++) {
                 var myEncryption = new Encryption(input[i]);
-                var test = IsMostCommonChar(countChar(myEncryption.EncryptedName), myEncryption.Checksum);
-                if (test === true) {
+                var isThisRealRoom = IsMostCommonChar(countChar(myEncryption.EncryptedName), myEncryption.Checksum);
+                if (isThisRealRoom === true) {
                     realRoomSectorIdsSum += myEncryption.SectorId;
                 }
             }

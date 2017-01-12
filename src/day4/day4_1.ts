@@ -126,9 +126,9 @@ namespace day4_1 {
                 
                 var myEncryption = new Encryption(input[i]);
                 
-                let test = IsMostCommonChar(countChar(myEncryption.EncryptedName), myEncryption.Checksum);
+                let isThisRealRoom = IsMostCommonChar(countChar(myEncryption.EncryptedName), myEncryption.Checksum);
 
-                if (test === true) {
+                if (isThisRealRoom === true) {
                     realRoomSectorIdsSum += myEncryption.SectorId;
                 }
             }

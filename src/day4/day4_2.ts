@@ -20,83 +20,46 @@ namespace day4_2 {
         }
     }
 
-    class Letter {
-        Char: string;
-        Count: number;
-    }
+    function getNextCharactersInString(input: string): string {
 
-    function IsMostCommonChar(input: Array<Letter>, checksum: string) {
+        let chars = input;
+        let newString = "";
 
-        let inputArray = input.sort(function (a: { Char: string; Count: number }, b: { Char: string; Count: number }): number {
+        for (let j = 0; j < chars.length; j++) {
 
-            if (a.Count > b.Count) {
-                return -1;
-            }
-            if (a.Count < b.Count) {
-                return 1;
-            }
-
-            if (a.Char < b.Char) {
-                return -1;
-            }
-
-            if (a.Char > b.Char) {
-                return 1;
-            }
-            return 0;
-        });
-
-        let IsValid;
-
-        for (let i = 0; i < checksum.length; i++) {
-
-            if (checksum[i] === inputArray[i].Char) {
-                IsValid = true;
-            } else {
-                IsValid = false;
-                return IsValid;
-            }
-        }
-            return IsValid;
-    }
-
-    function countChar(input: string) : Array<Letter> {
-
-        let arr = [];
-
-        for (let i = 0; i < input.length; i++) {
-
-            if (input[i] === "-") {
+            if (chars[j] === "-" || chars[j] === " ") {
+                newString += " ";
                 continue;
             }
 
-            let obj = {
-                Char: input[i],
-                Count: 1
-            };
+            let charCode = chars[j].charCodeAt(0);
 
-            let index = isCharInArray(arr, input[i]);
 
-            if (index === -1) {
-                arr.push(obj);
+            if (charCode !== 122) {
+            charCode++;
             } else {
-                arr[index].Count++;
+                charCode = 97;
             }
+
+            newString += String.fromCharCode(charCode);
+
         }
 
-        return arr;
+        return newString;
+
     }
 
-    function isCharInArray(arr: Array<Letter>, char: string): number {
+    function LoopNrOfTimes(input: string, count: number): string {
 
-        for (let i = 0; i < arr.length; i++) {
+        let encryption = input;
 
-            if (arr[i].Char === char) {
-                return i;
-            }
+        for (var i = 0; i < count; i++) {
+
+            encryption = getNextCharactersInString(encryption);
+
         }
 
-        return -1;
+        return encryption;
 
     }
 
@@ -110,30 +73,23 @@ namespace day4_2 {
 
         public static main() {
 
-            //let input = ["aaaaa-bbb-z-y-x-123[abxyz]"] //true
-            //let input = ["a-b-c-d-e-f-g-h-987[abcde]"]; // true
-            //let input = ["not-a-real-room-404[oarel]"]; // true
-            //let input = ["totally-real-room-200[decoy]"]; //false
-
-            //let input = ["aaaaa-bbb-z-y-x-123[abxyz]", "a-b-c-d-e-f-g-h-987[abcde]", "not-a-real-room-404[oarel]", "totally-real-room-200[decoy]"];
-
-            
             let input = getInputArray(data);
-
-            let realRoomSectorIdsSum = 0;
+            let northPoleObjects;
 
             for (var i = 0; i < input.length; i++) {
                 
-                var myEncryption = new Encryption(input[i]);
-                
-                let test = IsMostCommonChar(countChar(myEncryption.EncryptedName), myEncryption.Checksum);
+                let encryptedString = new Encryption(input[i]);
+                let chars = LoopNrOfTimes(encryptedString.EncryptedName, encryptedString.SectorId);
 
-                if (test === true) {
-                    realRoomSectorIdsSum += myEncryption.SectorId;
+                if (chars.indexOf("north") !== -1 && chars.indexOf("pole") !== -1) {
+
+                    northPoleObjects = encryptedString.SectorId;
+                    break;
+                    
                 }
             }
-
-            console.log("Sum of sectorIDs: " + realRoomSectorIdsSum);
+            
+            console.log("sector ID: " + northPoleObjects);
 
         }
     }
