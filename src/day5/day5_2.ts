@@ -9,13 +9,13 @@ namespace day5_2 {
 
     function getPassword(input: string): Array<string> {
 
-        var hachIndex = 0;
+        var hashIndex = 0;
         let nrsAdded = 0;
         let password = [];
 
         while (password.length <= 8 && nrsAdded < 8) {
 
-            let hex = crypto.createHash("md5").update(input+hachIndex).digest("hex");
+            let hex = crypto.createHash("md5").update(input+hashIndex).digest("hex");
 
             if (hex.substring(0, 5) === "00000") {
 
@@ -31,7 +31,7 @@ namespace day5_2 {
                 }
             }
 
-            hachIndex++;
+            hashIndex++;
 
         }
         

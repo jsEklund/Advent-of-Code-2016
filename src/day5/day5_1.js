@@ -5,15 +5,15 @@ var day5_1;
     var fs = require("fs");
     var data = fs.readFileSync('src/day5/input.txt', 'utf8');
     function getPassword(input) {
-        var hachIndex = 0;
+        var hashIndex = 0;
         var password = "";
         while (password.length < 8) {
-            var hex = crypto.createHash("md5").update(input + hachIndex).digest("hex");
+            var hex = crypto.createHash("md5").update(input + hashIndex).digest("hex");
             if (hex.substring(0, 5) === "00000") {
                 var char = hex.substr(5, 1);
                 password += char;
             }
-            hachIndex++;
+            hashIndex++;
         }
         return password;
     }
